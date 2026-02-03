@@ -22,6 +22,7 @@ def main():
             amount, value = acceptor.getStatus()
             print(f"Inserted coins = {amount}, value = {value}€")
     print("\nProgram ending.")
+    print("Thank you for using the program.")
 
 if __name__ == "__main__":
     main()
