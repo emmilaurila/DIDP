@@ -19,8 +19,6 @@ def main():
         elif choice == "0":
             print("Program ending.")
             break
-        else:
-            print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
     main()
