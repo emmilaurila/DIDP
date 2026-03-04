@@ -1,0 +1,77 @@
+CREATE TABLE Locations (
+LocationID INT IDENTITY(1,1) PRIMARY KEY,
+LocationName VARCHAR(100) NOT NULL,
+Address VARCHAR(200),
+City VARCHAR(100),
+Country VARCHAR(100)
+);
+
+CREATE TABLE IoT_Equipment (
+EquipmentID INT IDENTITY(1,1) PRIMARY KEY,
+EquipmentName VARCHAR(100) NOT NULL,
+EquipmentType VARCHAR(100),
+SerialNumber VARCHAR(100) UNIQUE,
+InstallationDate DATE,
+Status VARCHAR(50),
+LocationID INT,
+
+CONSTRAINT FK_Equipment_Location
+FOREIGN KEY (LocationID) REFERENCES Locations(LocationID)
+);
+
+CREATE TABLE Reservations (
+ReservationID INT IDENTITY(1,1) PRIMARY KEY,
+EquipmentID INT NOT NULL,
+UserID INT NOT NULL,
+StartDate DATETIME NOT NULL,
+EndDate DATETIME NOT NULL,
+Status VARCHAR(50),
+    
+CONSTRAINT FK_Reservation_Equipment
+FOREIGN KEY (EquipmentID) REFERENCES IoT_Equipment(EquipmentID),
+    
+CONSTRAINT FK_Reservation_User
+FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+CREATE TABLE Maintenance (
+MaintenanceID INT IDENTITY(1,1) PRIMARY KEY,
+EquipmentID INT NOT NULL,
+PerformedBy INT,  -- UserID
+MaintenanceDate DATETIME DEFAULT GETDATE(),
+Description VARCHAR(500),
+Status VARCHAR(50),
+    
+CONSTRAINT FK_Maintenance_Equipment
+FOREIGN KEY (EquipmentID) REFERENCES IoT_Equipment(EquipmentID),
+    
+CONSTRAINT FK_Maintenance_User
+FOREIGN KEY (PerformedBy) REFERENCES Users(UserID)
+);
+
+CREATE TABLE Measurements (
+MeasurementID INT IDENTITY(1,1) PRIMARY KEY,
+EquipmentID INT NOT NULL,
+MeasuredValue FLOAT NOT NULL,
+MeasurementType VARCHAR(50),
+MeasurementTime DATETIME DEFAULT GETDATE(),
+    
+CONSTRAINT FK_Measurement_Equipment
+FOREIGN KEY (EquipmentID) REFERENCES IoT_Equipment(EquipmentID)
+);
+
+CREATE TABLE Roles (
+RoleID INT IDENTITY(1,1) PRIMARY KEY,
+RoleName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Users (
+UserID INT IDENTITY(1,1) PRIMARY KEY,
+Username VARCHAR(100) NOT NULL UNIQUE,
+Email VARCHAR(150) NOT NULL UNIQUE,
+PasswordHash VARCHAR(255) NOT NULL,
+RoleID INT,
+    
+CONSTRAINT FK_User_Role
+FOREIGN KEY (RoleID) REFERENCES Roles(RoleID)
+);
