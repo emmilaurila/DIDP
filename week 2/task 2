@@ -1,0 +1,22 @@
+CREATE TABLE Departments (
+    department_id INTEGER PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE Employees (
+    employee_id INTEGER PRIMARY KEY,
+    name TEXT,
+    department_id INTEGER,
+    FOREIGN KEY (department_id) REFERENCES Departments(department_id)
+);
+
+INSERT INTO Departments VALUES (1, 'IT');
+INSERT INTO Departments VALUES (2, 'HR');
+
+INSERT INTO Employees VALUES (1, 'Jaakko', 1);
+INSERT INTO Employees VALUES (2, 'Amelia', 2);
+INSERT INTO Employees VALUES (3, 'Pauli', 2);
+
+SELECT Employees.name AS employee, Departments.name AS department
+FROM Employees
+JOIN Departments ON Employees.department_id = Departments.department_id;
