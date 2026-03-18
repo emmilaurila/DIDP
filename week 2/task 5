@@ -1,0 +1,23 @@
+CREATE TABLE Directors (
+    director_id INTEGER PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE Movies (
+    movie_id INTEGER PRIMARY KEY,
+    title TEXT,
+    director_id INTEGER,
+    FOREIGN KEY (director_id) REFERENCES Directors(director_id)
+);
+
+INSERT INTO Directors VALUES (1, 'Christopher Nolan');
+INSERT INTO Directors VALUES (2, 'Martin Scorsese');
+
+INSERT INTO Movies VALUES (1, 'Interstellar', 1);
+INSERT INTO Movies VALUES (2, 'Taxi Driver', 2);
+INSERT INTO Movies VALUES (3, 'Tenet', 1);
+
+SELECT Movies.title, Directors.name AS director
+FROM Movies
+JOIN Directors ON Movies.director_id = Directors.director_id;
+
