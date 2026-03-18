@@ -1,0 +1,22 @@
+CREATE TABLE Customers (
+    customer_id INTEGER PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE Orders (
+    order_id INTEGER PRIMARY KEY,
+    order TEXT,
+    customer_id INTEGER,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+);
+
+INSERT INTO Customers VALUES (1, 'Juha Silvennoinen');
+INSERT INTO Customers VALUES (2, 'Pekka Pouta');
+
+INSERT INTO Orders VALUES (1, 'Three apples', 1);
+INSERT INTO Orders VALUES (2, 'One baseball bat', 2);
+INSERT INTO Orders VALUES (3, '420 mice', 1);
+
+SELECT Customers.name AS customer, Orders.order
+FROM Orders
+JOIN Customers ON Orders.customer_id = Customers.customer_id;
