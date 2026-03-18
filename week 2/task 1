@@ -1,0 +1,21 @@
+CREATE TABLE Authors (
+    author_id INTEGER PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE Books (
+    book_id INTEGER PRIMARY KEY,
+    title TEXT,
+    author_id INTEGER,
+    FOREIGN KEY (author_id) REFERENCES Authors(author_id)
+);
+
+INSERT INTO Authors VALUES (1, 'J.K. Rowling');
+INSERT INTO Authors VALUES (2, 'Stephen King');
+
+INSERT INTO Books VALUES (1, 'Harry Potter', 1);
+INSERT INTO Books VALUES (2, 'IT', 2);
+
+SELECT Books.title, Authors.name
+FROM Books
+JOIN Authors ON Books.author_id = Authors.author_id;
