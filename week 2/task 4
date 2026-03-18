@@ -1,0 +1,22 @@
+CREATE TABLE Consultants (
+    consultant_id INTEGER PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE Meetings (
+    meeting_id INTEGER PRIMARY KEY,
+    meeting_type TEXT,
+    consultant_id INTEGER,
+    FOREIGN KEY (consultant_id) REFERENCES Consultants(consultant_id)
+);
+
+INSERT INTO Consultants VALUES (1, 'Dr. Muhammed');
+INSERT INTO Consultants VALUES (2, 'Dr. Aho');
+
+INSERT INTO Meetings VALUES (1, 'Knee surgery', 1);
+INSERT INTO Meetings VALUES (2, 'Annual checkup', 2);
+INSERT INTO Meetings VALUES (3, 'Brain cancer checkup', 1);
+
+SELECT Consultants.name AS consultant, Meetings.meeting_type
+FROM Meetings
+JOIN Consultants ON Meetings.consultant_id = Consultants.consultant_id;
